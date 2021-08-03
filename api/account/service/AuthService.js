@@ -84,10 +84,9 @@ class AuthService {
 	static async loginUser(req) {
 		try {
 			const userCheck = await db.User.findOne({
-				[db.Sequelize.Op.or]: [
-					{username: req.body.username},
-					{email: req.body.email}
-				],
+				where: {
+					username: req.body.username
+				},
 				include: [
 					{
 						model: db.Phone,

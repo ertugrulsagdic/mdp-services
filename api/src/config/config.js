@@ -1,7 +1,7 @@
 module.exports = {
   "development": {
     "username": "postgres",
-    "password": null,
+    "password": 'Ertugrul.135',
     "database": "mdp_services_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
