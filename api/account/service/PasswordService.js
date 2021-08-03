@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import db from '../../src/models';
 import jwt from 'jsonwebtoken';
-import Helpers from '../../utils/helpers';
+import Helpers from '../../utils/Helpers';
 import MailHelper from '../../utils/MailHelper';
 import { forgot_password_secret } from '../../src/config/settings';
 import bcrypt from 'bcrypt';
