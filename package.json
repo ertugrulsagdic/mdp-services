@@ -5,8 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "SET NODE_ENV=test&&cd api/src&&npx sequelize db:migrate:undo:all&&npx sequelize db:migrate&&npx sequelize-cli db:seed:all&&cd ..&&cd ..&&mocha --require @babel/register ./api/test/*.js --timeout 10000 --exit",
-    "start:dev": "nodemon --exec babel-node ./api/index.js",
-    "heroku-postbuild": "npm run build",
     "start": "node --exec babel-node ./api/index.js"
   },
   "keywords": [
