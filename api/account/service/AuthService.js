@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import db from '../../src/models';
 import bcrypt from 'bcrypt';
-import Helpers from '';
+import Helpers from '../../utils/Helpers';
 import jwt from 'jsonwebtoken';
 import { login_secret } from '../../src/config/settings';
 
