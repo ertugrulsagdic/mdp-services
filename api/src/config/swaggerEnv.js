@@ -8,7 +8,7 @@ module.exports = {
         address: "http",
     },
     production: {
-        host: "intense-reef-73883.herokuapp.com",
+        host: "mdp-services.herokuapp.com",
         address: "https",
     },
 }
