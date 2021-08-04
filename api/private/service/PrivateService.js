@@ -9,20 +9,11 @@ class PasswordService {
 		try {
 			console.log(req.userId);
 
-			const user = await db.User.findOne({
-				[db.Sequelize.Op.or]: [
-					{username: req.body.username},
-					{email: req.body.email}
-				],
-				include: {
-					model: db.Address,
-					as: 'addresses'
-				}
-			});
-
-			const addresses = user.addresses.map(address => {
-				const { id, province, district, street, building_number, flat, apartment_number } = address;
-				return { id, province, district, street, building_number, flat, apartment_number };
+			const addresses = await db.Address.findAll({
+				where: {
+					user_id: req.userId
+				},
+				attributes: [ 'id', 'province', 'district', 'street', 'building_number', 'flat', 'apartment_number' ]
 			});
 
 			return Helpers.setSuccessJson('Addresses of user has successfully retrieved.', addresses);
