@@ -8,7 +8,7 @@ module.exports = {
   },
   "test": {
     "username": "postgres",
-    "password": null,
+    "password": 'Ertugrul.135',
     "database": "mdp_services_test",
     "host": "127.0.0.1",
     "dialect": "postgres"

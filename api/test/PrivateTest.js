@@ -14,7 +14,7 @@ const loginUser = async () => {
 		.post(authRoute + '/Login')
 		.set('content-type', 'application/json').send({
 			username: 'testuser',
-			password: '123456789'
+			password: '987654321'
 		});
 };
 
@@ -24,6 +24,7 @@ describe('private', async () => {
 
 	before(async () => {
 		let res = await loginUser();
+		console.log(res.body);
 		token = res.body.data.token;
 	});
     

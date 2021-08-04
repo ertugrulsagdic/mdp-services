@@ -12,6 +12,7 @@ module.exports = {
         last_name: 'User',
         email: 'testuser@test.com',
         username: 'testuser',
+        salt: userSalt,
         password: passwordHash,
         createdAt: new Date(),
         updatedAt: new Date()

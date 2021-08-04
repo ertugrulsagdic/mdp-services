@@ -114,31 +114,6 @@ describe('auth', async () => {
 		});
 	});
 
-	it('Log the user in with correct email and password', (done) => {
-		chai.request(api).post(authRoute + '/Login').set('content-type', 'application/json').send({
-			email: 'testuser@test.com',
-			password: '123456789'
-		}).end((err, res) => {
-			if (err) {
-				done(err);
-			}
-			res.should.have.status(200);
-			res.should.be.a('object');
-			res.body.should.have.keys('status', 'message', 'data');
-			res.body.should.have.property('status').equal(true);
-			res.body.should.have.property('data').that.includes.all.keys([
-				'id',
-				'first_name',
-				'last_name',
-				'email',
-				'phone_numbers',
-				'addresses',
-				'token'
-			]);
-			done();
-		});
-	});
-
 	it('Log the user in with correct email but incorrect password', (done) => {
 		chai.request(api).post(authRoute + '/Login').set('content-type', 'application/json').send({
 			username: 'testuser@test.com',

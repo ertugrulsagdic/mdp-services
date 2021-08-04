@@ -25,7 +25,7 @@ describe('password', async () => {
 				}
 				res.should.have.a.status(200);
 				res.should.be.a('object');
-				res.body.should.have.keys('status', 'message');
+				res.body.should.have.keys('status', 'message', 'data');
 				res.body.should.have.property('status').equal(true);
 				done();
 			});
