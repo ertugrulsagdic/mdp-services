@@ -29,7 +29,9 @@ export default class MailHelper {
 			});
 
 			console.log('Message sent: %s', info.messageId);
-			console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+			const mailURl = nodemailer.getTestMessageUrl(info);
+			console.log('Preview URL: %s', mailURl);
+			return mailURl;
 
 		}
 		catch (error) {

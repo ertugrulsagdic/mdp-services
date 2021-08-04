@@ -26,9 +26,9 @@ class PasswordService {
 				expiresIn: 3600 // 1 hour
 			});
 
-			await MailHelper.sendForgotPasswordMail(req, userCheck.email, token);
+			const mailURL = await MailHelper.sendForgotPasswordMail(req, userCheck.email, token);
 			
-			return Helpers.setSuccessJson('Mail has been sent to ' + userCheck.email + '. Please check your email to reset your password!');
+			return Helpers.setSuccessJson('Mail has been sent to ' + userCheck.email + '. Please check your email to reset your password!', mailURL);
 		}
 		catch (error) {
 			throw error;

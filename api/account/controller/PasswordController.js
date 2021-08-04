@@ -39,7 +39,7 @@ class PasswordController {
 				util.setError(200, result.message);
 				return util.send(res);  
 			}
-			util.setSuccess(200, result.message);
+			util.setSuccess(200, result.message, result.data);
 			return util.send(res);
 		}
 		catch (error) {
