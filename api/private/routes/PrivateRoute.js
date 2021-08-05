@@ -28,5 +28,7 @@ app.use(async function(req, res, next) {
 });
 
 app.get('/Address', PrivateController.getAddresses);
+app.post('/Add/Addresses/At/Once', PrivateController.addAddressesAtOnce);
+app.post('/Add/Addresses/RabbitMQ', PrivateController.addAddressesRabbitMQ);
 
 module.exports = app;

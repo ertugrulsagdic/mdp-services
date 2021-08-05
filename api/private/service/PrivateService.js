@@ -23,6 +23,31 @@ class PasswordService {
 		}
 	}
 
+	static async addAddressesAtOnce(req) {
+		try {
+			console.log(req.body);
+			const result = await db.Address.bulkCreate(
+				req.body.addresses.map(address => ({...address, user_id: req.userId}))
+			);
+
+			console.log(result);
+			return Helpers.setSuccessJson('Addresses of user has successfully added.');
+		}
+		catch (error) {
+			console.log(error);
+			throw error;
+		}
+	}
+
+	static async addAddressesRabbitMQ(req) {
+		try {
+			return Helpers.setSuccessJson('Addresses of user has successfully added.');
+		}
+		catch (error) {
+			throw error;
+		}
+	}
+
 }
 
 export default PasswordService;
