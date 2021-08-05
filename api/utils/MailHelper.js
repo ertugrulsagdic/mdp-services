@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 
 export default class MailHelper {
 
-	static async sendForgotPasswordMail(req, email, token) {
+	static async sendMail(mailOptions) {
 
 		try {
 			let testAccount = await nodemailer.createTestAccount();
@@ -18,15 +18,7 @@ export default class MailHelper {
 				}
 			});
             
-			const info = await transporter.sendMail({
-				from: '"MDP Services" <ertugrul@mdpgroup.com>', 
-				to: email,
-				subject: 'MDP Services Forgot Password Mail',
-				text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                'http://' + req.headers.host + '/account/v1/Password/Reset/' + token + '\n\n' +
-                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-			});
+			const info = await transporter.sendMail(mailOptions);
 
 			console.log('Message sent: %s', info.messageId);
 			const mailURl = nodemailer.getTestMessageUrl(info);

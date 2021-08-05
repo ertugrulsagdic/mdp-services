@@ -3,9 +3,10 @@
 import db from '../../src/models';
 import jwt from 'jsonwebtoken';
 import Helpers from '../../utils/Helpers';
-import MailHelper from '../../utils/MailHelper';
+import RabbitMqMailHelper from '../../utils/RabbitMqMailHepler';
 import { forgot_password_secret } from '../../src/config/settings';
 import bcrypt from 'bcrypt';
+import getForgetPasswordMail from '../../mail/ForgotPassword';
 
 class PasswordService {
 
@@ -26,8 +27,11 @@ class PasswordService {
 				expiresIn: 3600 // 1 hour
 			});
 
-			const mailURL = await MailHelper.sendForgotPasswordMail(req, userCheck.email, token);
-			
+			//const mailURL = await MailHelper.sendForgotPasswordMail(req, userCheck.email, token);
+			const forgotPasswordMail = await getForgetPasswordMail(req, userCheck.email, token);
+			await RabbitMqMailHelper.rabbitMqMailProducer(forgotPasswordMail);
+			const mailURL = await RabbitMqMailHelper.rabbitMqMailConsumer();
+			console.log(mailURL);
 			return Helpers.setSuccessJson('Mail has been sent to ' + userCheck.email + '. Please check your email to reset your password!', mailURL);
 		}
 		catch (error) {

@@ -13,6 +13,7 @@
   "author": "ertugrulsagdic",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.8.0",
     "bcrypt": "^5.0.1",
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
