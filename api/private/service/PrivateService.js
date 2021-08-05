@@ -2,6 +2,7 @@
 /* eslint-disable no-unreachable */
 import db from '../../src/models';
 import Helpers from '../../utils/Helpers';
+import AddAddressHelper from '../../utils/AddAddressHelper';
 
 class PasswordService {
 
@@ -41,6 +42,11 @@ class PasswordService {
 
 	static async addAddressesRabbitMQ(req) {
 		try {
+			await req.body.addresses.map(async address => {
+				const newAddress = ({...address, user_id: req.userId});
+				await AddAddressHelper.addAddressProducer(newAddress);
+				await AddAddressHelper.addAddressConsumer();
+			});
 			return Helpers.setSuccessJson('Addresses of user has successfully added.');
 		}
 		catch (error) {
