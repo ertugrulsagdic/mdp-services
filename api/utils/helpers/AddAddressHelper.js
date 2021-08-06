@@ -8,7 +8,7 @@ export default class AddAddressHelper {
     
 	static async addAddressProducer(address) {
 		try {
-			const queue = RabbitEnv[env].mail_queue;
+			const queue = RabbitEnv[env].address_queue;
 			const connection = await amqp.connect(RabbitEnv[env].host);
 			const channel = await connection.createChannel();
 			await channel.assertQueue(queue, {
@@ -27,7 +27,7 @@ export default class AddAddressHelper {
 
 	static async addAddressConsumer() {
 		try {
-			const queue = RabbitEnv[env].mail_queue;
+			const queue = RabbitEnv[env].address_queue;
 			const connection = await amqp.connect(RabbitEnv[env].host);
 			const channel = await connection.createChannel();
 			await channel.assertQueue(queue, {
