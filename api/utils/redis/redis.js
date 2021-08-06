@@ -1,5 +1,8 @@
 import redis from 'redis';
+import asyncRedis from 'async-redis';
 
 const client = redis.createClient();
 
-module.exports = client;
+const asyncClient = asyncRedis.decorate(client);
+
+module.exports = asyncClient;

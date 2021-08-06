@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * @typedef Address
  * @property {string} province
@@ -21,6 +22,8 @@
 import PrivateService from '../service/PrivateService';
 import Util from '../../utils/utils';
 import { addAddressesRequestValidation } from '../validations/PrivateValidations';
+import client from '../../utils/redis/redis';
+import Helpers from '../../utils/helpers/Helpers';
 
 const util = new Util();
 
@@ -36,7 +39,20 @@ class PrivateController {
 	static async getAddresses(req, res) {
 		try {
 
-			const result = await PrivateService.getAdresses(req);
+			const cacheKey = 'userAddress:' + req.user_id;
+
+			const cachedAddress = await client.get(cacheKey);
+
+			let result;
+
+			if (cachedAddress) {
+				console.log(JSON.parse(cachedAddress));
+				result = Helpers.setSuccessJson('Addresses of user has successfully retrieved from cache.', JSON.parse(cachedAddress));
+			}
+			else {
+				result = await PrivateService.getAdresses(req);
+				await client.set(cacheKey, JSON.stringify(result.data));
+			}
 
 			if (!result.type) {
 				util.setError(200, result.message);
@@ -77,6 +93,10 @@ class PrivateController {
 				return util.send(res);
 			}
 
+			const cacheKey = 'userAddress:' + req.user_id;
+
+			await client.del(cacheKey);
+
 			util.setSuccess(200, result.message, result.data);
 			return util.send(res);
 		}
@@ -109,6 +129,10 @@ class PrivateController {
 				util.setError(200, result.message);
 				return util.send(res);
 			}
+
+			const cacheKey = 'userAddress:' + req.user_id;
+
+			await client.del(cacheKey);
 	
 			util.setSuccess(200, result.message, result.data);
 			return util.send(res);

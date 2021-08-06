@@ -8,11 +8,9 @@ class PasswordService {
 
 	static async getAdresses(req) {
 		try {
-			console.log(req.userId);
-
 			const addresses = await db.Address.findAll({
 				where: {
-					user_id: req.userId
+					user_id: req.user_id
 				},
 				attributes: [ 'id', 'province', 'district', 'street', 'building_number', 'flat', 'apartment_number' ]
 			});
@@ -28,7 +26,7 @@ class PasswordService {
 		try {
 			console.log(req.body);
 			const result = await db.Address.bulkCreate(
-				req.body.addresses.map(address => ({...address, user_id: req.userId}))
+				req.body.addresses.map(address => ({...address, user_id: req.user_id}))
 			);
 
 			console.log(result);
@@ -43,7 +41,7 @@ class PasswordService {
 	static async addAddressesRabbitMQ(req) {
 		try {
 			await req.body.addresses.map(async address => {
-				const newAddress = ({...address, user_id: req.userId});
+				const newAddress = ({...address, user_id: req.user_id});
 				await AddAddressHelper.addAddressProducer(newAddress);
 				await AddAddressHelper.addAddressConsumer();
 			});

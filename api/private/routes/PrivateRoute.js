@@ -22,7 +22,7 @@ app.use(async function(req, res, next) {
 			utils.setError(401, err.message);
 			return utils.send(res);
 		}
-		req.userId = decoded.id;
+		req.user_id = decoded.id;
 		next();
 	});
 });
