@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unreachable */
 import db from '../../src/models';
-import Helpers from '../../utils/Helpers';
-import AddAddressHelper from '../../utils/AddAddressHelper';
+import Helpers from '../../utils/helpers/Helpers';
+import AddAddressHelper from '../../utils/helpers/AddAddressHelper';
 
 class PasswordService {
 

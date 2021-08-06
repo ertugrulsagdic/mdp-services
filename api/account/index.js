@@ -1,4 +1,4 @@
-import Helpers from '../utils/Helpers';
+import Helpers from '../utils/helpers/Helpers';
 import express from 'express';
 import path from 'path';
 

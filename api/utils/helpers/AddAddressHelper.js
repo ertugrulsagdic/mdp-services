@@ -1,6 +1,6 @@
 import amqp from 'amqplib';
-import RabbitEnv from '../src/config/rabbitEnv';
-import db from '../src/models';
+import RabbitEnv from '../../src/config/rabbitEnv';
+import db from '../../src/models';
 
 const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Joi from 'joi';
-import Helpers from '../../utils/Helpers';
+import Helpers from '../../utils/helpers/Helpers';
 
 export const forgotPasswordRequestValidation = (req) => {
 

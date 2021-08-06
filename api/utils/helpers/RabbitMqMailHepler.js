@@ -1,5 +1,5 @@
 import amqp from 'amqplib';
-import RabbitEnv from '../src/config/rabbitEnv';
+import RabbitEnv from '../../src/config/rabbitEnv';
 import nodemailer from 'nodemailer';
 
 const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';

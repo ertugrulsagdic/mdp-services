@@ -2,8 +2,8 @@
 /* eslint-disable max-len */
 import db from '../../src/models';
 import jwt from 'jsonwebtoken';
-import Helpers from '../../utils/Helpers';
-import RabbitMqMailHelper from '../../utils/RabbitMqMailHepler';
+import Helpers from '../../utils/helpers/Helpers';
+import RabbitMqMailHelper from '../../utils/helpers/RabbitMqMailHepler';
 import { forgot_password_secret } from '../../src/config/settings';
 import bcrypt from 'bcrypt';
 import getForgetPasswordMail from '../../mail/ForgotPassword';
