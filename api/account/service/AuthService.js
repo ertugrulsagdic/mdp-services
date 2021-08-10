@@ -99,17 +99,11 @@ class AuthService {
 				const userSalt = await bcrypt.genSalt(saltRounds);
 				const passwordHash = await bcrypt.hash(req.body.password, userSalt);
 
+				req.body.password = passwordHash;
+				req.body.salt = userSalt;
+
 				// Create user
-				const userResult = await db.User.create({
-					first_name: req.body.first_name,
-					last_name: req.body.last_name,
-					email: req.body.email,
-					username: req.body.username,
-					password: passwordHash,
-					salt: userSalt,
-					phone_numbers: req.body.phone_numbers,
-					addresses: req.body.addresses
-				}, {
+				const userResult = await db.User.create(req.body, {
 					include: [
 						{ 
 							model: db.Phone,
