@@ -71,6 +71,39 @@ class AuthController {
 	}
 
 	/**
+	 * @route POST /account/v1/Auth/Signup/With/Include
+	 * @group Account/Auth
+	 * @summary Signs the new user in with proper request body by using create method with include
+	 * @param {SignupUserRequest.model} body.body 
+	 * @returns {object} 200 - Success message
+	 * @returns {Error} default - Unexpected error
+	 */
+	static async signupUserWithInclude(req, res) {
+		try {
+			const requestBodyValidation = signupUserRequestValidation(req);
+
+			if (!requestBodyValidation.type) {
+				util.setError(200, requestBodyValidation.message);
+				return util.send(res);
+			}
+
+			const result = await AuthService.signupUserWithInclude(req);
+	
+			if (!result.type) {
+				util.setError(200, result.message);
+				return util.send(res);
+			}
+	
+			util.setSuccess(200, result.message);
+			return util.send(res);
+		}
+		catch (error) {
+			util.setError(400, error.message);
+			return util.send(res);
+		}
+	}
+
+	/**
 	 * @route POST /account/v1/Auth/Login
 	 * @group Account/Auth
 	 * @summary Logs the user in with proper request body

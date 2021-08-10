@@ -81,6 +81,64 @@ class AuthService {
 		}
 	}
 
+	static async signupUserWithInclude(req) {
+		try {
+			// check if the user exists
+			const userCheck = await db.User.findOne({
+				where: {
+					[db.Sequelize.Op.or]: [
+						{username: req.body.username},
+						{email: req.body.email}
+					]
+				}
+			});
+
+			if (!userCheck) {
+				// Hash the password
+				const saltRounds = 10;
+				const userSalt = await bcrypt.genSalt(saltRounds);
+				const passwordHash = await bcrypt.hash(req.body.password, userSalt);
+
+				// Create user
+				const userResult = await db.User.create({
+					first_name: req.body.first_name,
+					last_name: req.body.last_name,
+					email: req.body.email,
+					username: req.body.username,
+					password: passwordHash,
+					salt: userSalt,
+					phone_numbers: req.body.phone_numbers,
+					addresses: req.body.addresses
+				}, {
+					include: [
+						{ 
+							model: db.Phone,
+							as: 'phone_numbers'
+						},
+						{ 
+							model: db.Address,
+							as: 'addresses'
+						}
+					]
+				});
+
+				return Helpers.setSuccessJson('User has registered successfully', userResult);
+			}
+			else if (userCheck.email === req.body.email) {
+				return Helpers.setFailJson('User already exist with this email!');
+			}
+			else if (userCheck.username === req.body.username) {
+				return Helpers.setFailJson('User already exist with this username!');
+			}
+			else {
+				return Helpers.setFailJson('Something went wrong.');
+			}
+		}
+		catch (error) {
+			throw error;
+		}
+	}
+
 	static async loginUser(req) {
 		try {
 			const userCheck = await db.User.findOne({
