@@ -1,14 +1,18 @@
 module.exports = {
-    development: {
+    'development': {
         host: "localhost:8000/",
         address: "http",
     },
-    test: {
+    'test': {
         host: "localhost:8000/",
         address: "http",
     },
-    production: {
+    'production': {
         host: "mdp-services.herokuapp.com",
+        address: "https",
+    },
+    'docker': {
+        host: "localhost:8000/",
         address: "https",
     },
 }

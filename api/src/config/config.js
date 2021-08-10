@@ -13,6 +13,13 @@ module.exports = {
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
+  docker: {
+    "username": "postgres",
+    "password": 'postgres_123456',
+    "database": "mdp_services_development",
+    "host": "postgres",
+    "dialect": 'postgres'
+  },
   production: {
     use_env_variable: "DATABASE_URL",
     database: "d6gml09d079t",
