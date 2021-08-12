@@ -3,7 +3,7 @@ import swaggerEnv from "./swaggerEnv";
 const env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
 console.log("swagger env", env);
 module.exports = {
-  title: "News API",
+  title: "MDP API",
 
   swaggerOptions: {
     swaggerDefinition: {

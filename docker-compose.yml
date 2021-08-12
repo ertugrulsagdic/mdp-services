@@ -58,7 +58,7 @@ services:
         - mdp-services
         
   app:
-    build: .
+    image: ertugrulsagdic/mdp-services-app
     container_name: mdp-services-app
     environment:
       NODE_ENV: docker
